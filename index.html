@@ -1,0 +1,831 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Data Form | George Telegraph</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    min-height: 100vh;
+    padding: 25px 15px;
+    color: #1e293b;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* HEADER */
+
+.header {
+    background: linear-gradient(135deg, #172554, #2563eb);
+    color: white;
+    padding: 28px 20px;
+    border-radius: 18px 18px 0 0;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.header h1 {
+    font-size: 28px;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+}
+
+.header h2 {
+    font-size: 17px;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.header .line {
+    width: 80px;
+    height: 4px;
+    background: #facc15;
+    margin: 14px auto 0;
+    border-radius: 10px;
+}
+
+/* FORM CARD */
+
+.form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+}
+
+.section-title {
+    font-size: 19px;
+    color: #1d4ed8;
+    border-left: 5px solid #2563eb;
+    padding-left: 10px;
+    margin: 5px 0 22px;
+    font-weight: 700;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 7px;
+    color: #334155;
+}
+
+label span {
+    color: #dc2626;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.25s;
+    background: #f8fafc;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #2563eb;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+/* BUTTONS */
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+button {
+    border: none;
+    padding: 13px 28px;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.submit-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.submit-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.reset-btn {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.reset-btn:hover {
+    background: #cbd5e1;
+}
+
+.print-btn {
+    background: #0f766e;
+    color: white;
+}
+
+.print-btn:hover {
+    background: #115e59;
+    transform: translateY(-2px);
+}
+
+/* MESSAGE */
+
+.success {
+    display: none;
+    margin-top: 20px;
+    padding: 14px;
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+    border-radius: 9px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.error {
+    display: none;
+    margin-top: 20px;
+    padding: 14px;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+    border-radius: 9px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+/* MOBILE */
+
+@media(max-width: 700px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .header h1 {
+        font-size: 21px;
+    }
+
+    .header h2 {
+        font-size: 14px;
+    }
+
+    .form-card {
+        padding: 20px 15px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+/* PRINT */
+
+@media print {
+
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    .header {
+        box-shadow: none;
+    }
+
+    .form-card {
+        box-shadow: none;
+    }
+
+    .buttons,
+    .footer,
+    .success,
+    .error {
+        display: none !important;
+    }
+
+    input,
+    select,
+    textarea {
+        border: 1px solid #999;
+        background: white;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            THE GEORGE TELEGRAPH TRAINING INSTITUTE
+        </h1>
+
+        <h2>
+            MIDNAPORE CENTRE
+        </h2>
+
+        <div class="line"></div>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <div class="form-card">
+
+        <div class="section-title">
+            Student Information Form
+        </div>
+
+
+        <form id="studentForm">
+
+            <div class="form-grid">
+
+
+                <!-- NAME -->
+
+                <div class="form-group full">
+
+                    <label>
+                        NAME OF STUDENT <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="studentName"
+                        placeholder="Enter student's full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- COURSE -->
+
+                <div class="form-group">
+
+                    <label>
+                        COURSE <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="course"
+                        placeholder="Enter course name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ADMISSION DATE -->
+
+                <div class="form-group">
+
+                    <label>
+                        DATE OF ADMISSION <span>*</span>
+                    </label>
+
+                    <input
+                        type="date"
+                        name="admissionDate"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- SEMESTER -->
+
+                <div class="form-group">
+
+                    <label>
+                        SEMESTER
+                    </label>
+
+                    <select name="semester">
+
+                        <option value="">
+                            Select Semester
+                        </option>
+
+                        <option>1st Semester</option>
+                        <option>2nd Semester</option>
+                        <option>3rd Semester</option>
+                        <option>4th Semester</option>
+                        <option>5th Semester</option>
+                        <option>6th Semester</option>
+                        <option>Final Semester</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SESSION -->
+
+                <div class="form-group">
+
+                    <label>
+                        SESSION
+                    </label>
+
+                    <input
+                        type="text"
+                        name="session"
+                        placeholder="Example: AM-26"
+                    >
+
+                </div>
+
+
+                <!-- REGISTRATION -->
+
+                <div class="form-group">
+
+                    <label>
+                        REGISTRATION NUMBER
+                    </label>
+
+                    <input
+                        type="text"
+                        name="registrationNumber"
+                        placeholder="Enter registration number"
+                    >
+
+                </div>
+
+
+                <!-- CONTACT -->
+
+                <div class="form-group">
+
+                    <label>
+                        CONTACT NUMBER <span>*</span>
+                    </label>
+
+                    <input
+                        type="tel"
+                        name="contactNumber"
+                        placeholder="Enter 10 digit mobile number"
+                        maxlength="10"
+                        pattern="[0-9]{10}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="form-group full">
+
+                    <label>
+                        FULL ADDRESS
+                    </label>
+
+                    <textarea
+                        name="address"
+                        placeholder="Enter complete residential address"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- DOB -->
+
+                <div class="form-group">
+
+                    <label>
+                        DATE OF BIRTH
+                    </label>
+
+                    <input
+                        type="date"
+                        name="dob"
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label>
+                        MAIL ID
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="example@gmail.com"
+                    >
+
+                </div>
+
+
+                <!-- BATCH START -->
+
+                <div class="form-group">
+
+                    <label>
+                        BATCH START DATE
+                    </label>
+
+                    <input
+                        type="date"
+                        name="batchStartDate"
+                    >
+
+                </div>
+
+
+                <!-- BATCH END -->
+
+                <div class="form-group">
+
+                    <label>
+                        BATCH END DATE
+                    </label>
+
+                    <input
+                        type="date"
+                        name="batchEndDate"
+                    >
+
+                </div>
+
+
+                <!-- FATHER -->
+
+                <div class="form-group">
+
+                    <label>
+                        FATHER'S NAME
+                    </label>
+
+                    <input
+                        type="text"
+                        name="fatherName"
+                        placeholder="Enter father's name"
+                    >
+
+                </div>
+
+
+                <!-- MOTHER -->
+
+                <div class="form-group">
+
+                    <label>
+                        MOTHER'S NAME
+                    </label>
+
+                    <input
+                        type="text"
+                        name="motherName"
+                        placeholder="Enter mother's name"
+                    >
+
+                </div>
+
+
+                <!-- GUARDIAN -->
+
+                <div class="form-group">
+
+                    <label>
+                        GUARDIAN NAME
+                    </label>
+
+                    <input
+                        type="text"
+                        name="guardianName"
+                        placeholder="Enter guardian's name"
+                    >
+
+                </div>
+
+
+                <!-- QUALIFICATION -->
+
+                <div class="form-group">
+
+                    <label>
+                        HIGHEST QUALIFICATION
+                    </label>
+
+                    <input
+                        type="text"
+                        name="qualification"
+                        placeholder="Example: Madhyamik / HS / Graduation"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="submitButton"
+                >
+                    ✓ Submit Data
+                </button>
+
+
+                <button
+                    type="reset"
+                    class="reset-btn"
+                >
+                    ↻ Reset Form
+                </button>
+
+
+                <button
+                    type="button"
+                    class="print-btn"
+                    onclick="window.print()"
+                >
+                    🖨 Print
+                </button>
+
+            </div>
+
+
+            <!-- SUCCESS -->
+
+            <div
+                class="success"
+                id="successMessage"
+            >
+                ✓ Student data submitted successfully!
+            </div>
+
+
+            <!-- ERROR -->
+
+            <div
+                class="error"
+                id="errorMessage"
+            >
+                ✕ Something went wrong. Please try again.
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+    <div class="footer">
+
+        © 2026 The George Telegraph Training Institute –
+        Midnapore Centre
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/*
+====================================================
+PUT YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+====================================================
+*/
+
+const APPS_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyPdorAzi_uKx8PI7CPfT1BQZwSDBBu9mH7WYjDkKfyLw_0qtCZj8huw7yXjOpjttkQ/exec";
+
+
+const form =
+document.getElementById("studentForm");
+
+
+const submitButton =
+document.getElementById("submitButton");
+
+
+const successMessage =
+document.getElementById("successMessage");
+
+
+const errorMessage =
+document.getElementById("errorMessage");
+
+
+
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    successMessage.style.display = "none";
+    errorMessage.style.display = "none";
+
+
+    submitButton.disabled = true;
+
+    submitButton.innerHTML =
+    "⏳ Saving Data...";
+
+
+    const formData =
+    new FormData(form);
+
+
+    fetch(APPS_SCRIPT_URL, {
+
+        method: "POST",
+
+        body: formData
+
+    })
+
+
+    .then(response => response.json())
+
+
+    .then(data => {
+
+
+        if (data.status === "success") {
+
+
+            successMessage.style.display =
+            "block";
+
+
+            successMessage.innerHTML =
+            "✓ Student data saved successfully!";
+
+
+            form.reset();
+
+
+            submitButton.disabled =
+            false;
+
+
+            submitButton.innerHTML =
+            "✓ Submit Data";
+
+
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: "smooth"
+            });
+
+
+            setTimeout(function() {
+
+                successMessage.style.display =
+                "none";
+
+            }, 5000);
+
+
+        }
+
+        else {
+
+
+            throw new Error(
+                data.message ||
+                "Unable to save data"
+            );
+
+        }
+
+    })
+
+
+    .catch(error => {
+
+
+        console.error(error);
+
+
+        errorMessage.style.display =
+        "block";
+
+
+        errorMessage.innerHTML =
+        "✕ Data could not be saved. Please check your Apps Script URL and deployment.";
+
+
+        submitButton.disabled =
+        false;
+
+
+        submitButton.innerHTML =
+        "✓ Submit Data";
+
+    });
+
+
+});
+
+</script>
+
+
+</body>
+</html>
